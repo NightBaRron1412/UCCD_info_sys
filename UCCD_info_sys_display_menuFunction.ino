@@ -250,7 +250,8 @@ void mFunc_screensaver(uint8_t param)
     // setup function
     digitalWrite(BLA, LOW);
     u8g2.setFont(_LCDML_DISP_font);
-    mp3.sleep();       //inter sleep mode, 24mA
+    //mp3.sleep();       //inter sleep mode, 24mA
+    mp3.playTrack(1);
     u8g2.firstPage();
     do {
       u8g2.drawXBMP((_LCDML_DISP_box_x1 - UCCD_BMPWIDTH) / 2, _LCDML_DISP_box_x0, UCCD_BMPWIDTH, UCCD_BMPHEIGHT, uccd_logo);

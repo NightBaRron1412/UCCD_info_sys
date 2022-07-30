@@ -314,9 +314,10 @@ void lcdml_menu_control(void)
 
 #define ENCODER_OPTIMIZE_INTERRUPTS //Only when using pin2/3 (or 20/21 on mega)
 #include <Encoder.h> //for Encoder    Download:  https://github.com/PaulStoffregen/Encoder
+#include <Debounce.h>
 
 Encoder ENCODER(encoder_A_pin, encoder_B_pin);
-
+Debounce ENCODER_BUTTON(encoder_button_pin, 50, true); // 4 is the pin, 80 is the delay in ms, true for INPUT_PULLUP.
 unsigned long  g_LCDML_CONTROL_button_press_time = millis();
 bool  g_LCDML_CONTROL_button_prev       = HIGH;
 
@@ -326,8 +327,7 @@ void lcdml_menu_control(void)
 {
   // declare variable for this function
   int32_t g_LCDML_CONTROL_Encoder_position = ENCODER.read();
-  bool g_LCDML_button                      = digitalRead(encoder_button_pin);
-
+  bool g_LCDML_button                      = !ENCODER_BUTTON.read();
   // If something must init, put in in the setup condition
   if (LCDML.BT_setup())
   {
